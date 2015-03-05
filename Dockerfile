@@ -1,12 +1,6 @@
 FROM debian:squeeze
 MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
-# Install apache first
-RUN apt-get update \
-    && apt-get install -y \
-        apache2
-    && apt-get clean
-
 # Use lenny repository for PHP 5.2.17 and install PHP.
 ADD lenny_sources.list /etc/apt/sources.list
 ADD php.conf /etc/apt/preferences.d/php.conf
@@ -25,6 +19,7 @@ RUN apt-get update \
 ADD squeeze_sources.list /etc/apt/sources.list
 RUN apt-get update \
     && apt-get install -y \
+        apache2 \
         curl \
         lynx-cur
 
