@@ -1,8 +1,0 @@
-deb http://ftp.jp.debian.org/debian squeeze main contrib
-deb-src http://ftp.jp.debian.org/debian squeeze main contrib
-
-deb http://security.debian.org/ squeeze/updates main contrib
-deb-src http://security.debian.org/ squeeze/updates main contrib
-
-deb http://http.debian.net/debian squeeze-lts main contrib non-free
-deb-src http://http.debian.net/debian squeeze-lts main contrib non-free
