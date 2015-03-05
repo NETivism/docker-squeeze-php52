@@ -39,9 +39,6 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
-# Update the default apache site with the config we created.
-ADD apache-config.conf /etc/apache2/sites-enabled/000-default
-
 # By default, simply start mysql and apache.
 EXPOSE 80
 CMD /usr/sbin/apache2ctl -D FOREGROUND
