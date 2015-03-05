@@ -5,7 +5,8 @@ MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 RUN \
     apt-get update \
     apt-get -y upgrade \
-    apt-add-repository ppa:andphe/php
+    apt-get install -y python-software-properties
+RUN apt-add-repository ppa:andphe/php
 
 # Install apache, PHP, and supplimentary programs.
 RUN apt-get update \
