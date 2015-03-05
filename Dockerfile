@@ -1,15 +1,17 @@
 FROM debian:squeeze
 MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
-# Use lenny repository for PHP 5.2.17
-RUN echo "deb http://archive.debian.org/debian-archive/debian/ lenny main contrib non-free" >> /etc/apt/sources.list
-RUN apt-get update
-ADD php.conf /etc/apt/preferences.d/php.conf
-
-# Install apache, PHP, and supplimentary programs.
+# Install apache first
 RUN apt-get update \
     && apt-get install -y \
-        apache2 \
+        apache2
+    && apt-get clean
+
+# Use lenny repository for PHP 5.2.17 and install PHP.
+ADD lenny-sources.list /etc/apt/sources.list
+ADD php.conf /etc/apt/preferences.d/php.conf
+RUN apt-get update \
+    && apt-get install -y \
         libapache2-mod-php5 \
         php5 \
         php5-mysql \
@@ -17,9 +19,14 @@ RUN apt-get update \
         php5-suhosin \
         php-pear \
         php5-curl \
+    && apt-get clean
+
+# Use squeeze repository for other supplimentary programs.
+ADD squeeze-sources.list /etc/apt/sources.list
+RUN apt-get update \
+    && apt-get install -y \
         curl \
         lynx-cur
-#    && apt-get clean \
 
 # Enable apache mods.
 RUN a2enmod php5
