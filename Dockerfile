@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get clean
 
 # Use lenny repository for PHP 5.2.17 and install PHP.
-ADD lenny-sources.list /etc/apt/sources.list
+ADD lenny_sources.list /etc/apt/sources.list
 ADD php.conf /etc/apt/preferences.d/php.conf
 RUN apt-get update \
     && apt-get install -y \
@@ -22,7 +22,7 @@ RUN apt-get update \
     && apt-get clean
 
 # Use squeeze repository for other supplimentary programs.
-ADD squeeze-sources.list /etc/apt/sources.list
+ADD squeeze_sources.list /etc/apt/sources.list
 RUN apt-get update \
     && apt-get install -y \
         curl \
