@@ -2,11 +2,10 @@ FROM debian:squeeze
 MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
 # Add new repository for PHP 5.2.17
-RUN \
-    apt-get update \
-    apt-get -y upgrade \
-    apt-get install -y python-software-properties
-RUN apt-add-repository ppa:andphe/php
+RUN apt-get update \
+    && apt-get -y upgrade \
+    && apt-get install -y python-software-properties
+    && apt-add-repository ppa:andphe/php
 
 # Install apache, PHP, and supplimentary programs.
 RUN apt-get update \
