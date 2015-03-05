@@ -1,12 +1,11 @@
 FROM debian:squeeze
 MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
-# Timeout issues with http.debian.net
-RUN sed -i.bak 's/http.debian.net/debian.gtisc.gatech.edu/' /etc/apt/sources.list
-
-# Retrieve PHP 5.2 from Lenny
-ADD lenny.list /etc/apt/sources.list.d/
-ADD lenny-php /etc/apt/preferences.d/
+# Add new repository for PHP 5.2.17
+RUN \
+    apt-get update \
+    apt-get -y upgrade \
+    apt-add-repository ppa:andphe/php
 
 # Install apache, PHP, and supplimentary programs.
 RUN apt-get update \
@@ -18,7 +17,6 @@ RUN apt-get update \
         php5-gd \
         php5-suhosin \
         php-pear \
-        php-apc \
         php5-curl \
         curl \
         lynx-cur
