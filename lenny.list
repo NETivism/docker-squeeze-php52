@@ -1,3 +1,0 @@
-# Some timeout issues on archive.debian.org
-# deb http://archive.debian.org/debian lenny main contrib non-free
-deb http://archive.kernel.org/debian-archive/debian lenny main contrib non-free
