@@ -5,7 +5,7 @@ MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 RUN sed -i.bak 's/http.debian.net/debian.gtisc.gatech.edu/' /etc/apt/sources.list
 
 # Retrieve PHP 5.2 from Lenny
-ADD lenny-list /etc/apt/sources.list.d/
+ADD lenny.list /etc/apt/sources.list.d/
 ADD lenny-php /etc/apt/preferences.d/
 
 # Install apache, PHP, and supplimentary programs.
