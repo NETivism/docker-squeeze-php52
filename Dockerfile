@@ -21,9 +21,7 @@ RUN apt-get update \
         php-apc \
         php5-curl \
         curl \
-        lynx-cur \
-        mysql-server \
-        mysql-client
+        lynx-cur
 #    && apt-get clean \
 
 # Enable apache mods.
@@ -37,14 +35,9 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
-# Add MySQL scripts
-ADD run-mysql.sh /run-mysql.sh
-RUN chmod 755 /run-mysql.sh
-
 # Update the default apache site with the config we created.
 ADD apache-config.conf /etc/apache2/sites-enabled/000-default
 
 # By default, simply start mysql and apache.
 EXPOSE 80
-CMD /run-mysql.sh
 CMD /usr/sbin/apache2ctl -D FOREGROUND
