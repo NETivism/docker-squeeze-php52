@@ -1,3 +1,6 @@
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 327 bytes | 0 bytes/s, done.
 Explanation: choose Lenny as installation source if the package is not already installed and not available from Squeeze
 Package: *
 Pin: release n=lenny*

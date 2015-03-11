@@ -3,7 +3,7 @@ MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
 # Use lenny repository for PHP 5.2.17.
 RUN echo "deb http://archive.debian.org/debian lenny main contrib non-free" >> /etc/apt/sources.list
-ADD lenny /etc/apt/preferences.d/
+ADD sources/lenny /etc/apt/preferences.d/
 RUN apt-get update \
     && apt-get install -y \
         apache2 \
@@ -15,7 +15,9 @@ RUN apt-get update \
         php5-mysql \
         php5-curl \
         curl \
-        lynx-cur
+        lynx-cur \
+        wget \
+        vim
 
 # Enable apache mods.
 RUN a2enmod php5
@@ -27,3 +29,10 @@ ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
+
+# Update the default apache site with the config we created.
+ADD sources/apache-config.conf /etc/apache2/sites-enabled/000-default
+
+# By default, simply start mysql and apache.
+EXPOSE 80
+CMD /usr/sbin/apache2ctl -D FOREGROUND
