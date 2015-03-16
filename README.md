@@ -6,4 +6,4 @@
 
 1. 先變更 sources/apache-config.conf 裡的 servername 參數，改成您要啟動的網站名稱
 2. 透過以下指令執行
-<code>sudo docker run -d -p 8001:80 -v /host/site/path:/var/www/html gloomcheng/squeeze</code>
+<code>sudo docker run -d -p 8001:80 -v /host/site/path:/var/www/html gloomcheng/docker-squeeze-php52</code>

@@ -19,6 +19,13 @@ RUN apt-get update \
         wget \
         vim
 
+# Install MySQL server and client.
+RUN apt-get install -y \
+     mysql-server \
+     mysql-client
+ADD sources/create_user.sql /
+CMD exec /usr/bin/mysqld_safe
+
 # Enable apache mods.
 RUN a2enmod php5
 RUN a2enmod rewrite
