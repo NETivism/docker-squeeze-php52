@@ -23,7 +23,7 @@ RUN apt-get update \
 RUN apt-get install -y \
      mysql-server \
      mysql-client
-ADD sources/create_user.sql /
+#ADD sources/create_user.sql /
 CMD exec /usr/bin/mysqld_safe
 
 # Enable apache mods.
