@@ -16,6 +16,7 @@ RUN apt-get update \
         php5-curl \
         curl \
         lynx-cur \
+        git-core \
         wget
 
 ### apache
