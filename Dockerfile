@@ -3,7 +3,7 @@ MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
 # Use lenny repository for PHP 5.2.17.
 RUN echo "deb http://archive.debian.org/debian lenny main contrib non-free" >> /etc/apt/sources.list
-ADD sources/lenny /etc/apt/preferences.d/
+ADD sources/apt/lenny /etc/apt/preferences.d/
 RUN apt-get update \
     && apt-get install -y \
         apache2 \
@@ -16,19 +16,19 @@ RUN apt-get update \
         php5-curl \
         curl \
         lynx-cur \
-        wget \
-        vim
+        wget
 
-# Install MySQL server and client.
-RUN apt-get install -y \
-     mysql-server \
-     mysql-client
-#ADD sources/create_user.sql /
-CMD exec /usr/bin/mysqld_safe
+### apache
+# remove default enabled site
+RUN rm -f /etc/apache2/sites-enabled/000-default
 
 # Enable apache mods.
 RUN a2enmod php5
 RUN a2enmod rewrite
+
+# Add customize site, security settings.
+ADD sources/apache/netivism.conf /etc/apache2/conf.d/netivism.conf
+ADD sources/apache/security.conf /etc/apache2/conf.d/security.conf
 
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data
@@ -37,9 +37,10 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
-# Update the default apache site with the config we created.
-ADD sources/apache-config.conf /etc/apache2/sites-enabled/000-default
+# Install MySQL server and client.
+RUN apt-get install -y \
+     mysql-server \
+     mysql-client
 
 # By default, simply start mysql and apache.
 EXPOSE 80
-CMD /usr/sbin/apache2ctl -D FOREGROUND
