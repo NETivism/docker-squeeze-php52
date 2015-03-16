@@ -50,7 +50,3 @@ ADD sources/mysql/my.cnf /etc/mysql/my.cnf
 ### startup script
 RUN git clone https://github.com/NETivism/docker-sh.git /home/docker
 WORKDIR /home/docker
-
-# By default, simply start mysql and apache.
-EXPOSE 80 3306
-WORKDIR /home/docker
