@@ -52,5 +52,5 @@ RUN git clone https://github.com/NETivism/docker-sh.git /home/docker
 WORKDIR /home/docker
 
 # By default, simply start mysql and apache.
-EXPOSE 80
+EXPOSE 80 3306
 WORKDIR /home/docker
