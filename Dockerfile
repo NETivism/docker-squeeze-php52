@@ -20,6 +20,8 @@ RUN apt-get update \
         git-core \
         wget
 
+RUN git clone https://github.com/NETivism/docker-sh.git /home/docker
+
 ### Apache
 # remove default enabled site
 RUN rm -f /etc/apache2/sites-enabled/000-default
@@ -47,6 +49,9 @@ RUN apt-get install -y \
 
 ADD sources/mysql/my.cnf /etc/mysql/my.cnf
 
-### startup script
-RUN git clone https://github.com/NETivism/docker-sh.git /home/docker
+### PHP
+WORKDIR /etc/php5/conf.d
+RUN ln -s /home/docker/php/default52.ini
+
+### 
 WORKDIR /home/docker
