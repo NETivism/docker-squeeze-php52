@@ -14,44 +14,32 @@ RUN apt-get update \
         php5-mcrypt \
         php5-mysql \
         php5-curl \
+        php5-cli \
         curl \
         lynx-cur \
         vim \
         git-core \
-        wget
-
-RUN git clone https://github.com/NETivism/docker-sh.git /home/docker
+        wget && \
+  a2enmod php5 && a2enmod rewrite && \
+  rm -f /etc/apache2/sites-enabled/000-default && \
+  git clone https://github.com/NETivism/docker-sh.git /home/docker
 
 ### Apache
-# remove default enabled site
-RUN rm -f /etc/apache2/sites-enabled/000-default
-
 # Enable apache mods.
-RUN a2enmod php5
-RUN a2enmod rewrite
-
-# Add customize site, security settings
-ADD sources/apache/netivism.conf /etc/apache2/conf.d/netivism.conf
 ADD sources/apache/security.conf /etc/apache2/conf.d/security.conf
 
-# Manually set up the apache environment variables
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
+ENV \
+  APACHE_RUN_USER=www-data \
+  APACHE_RUN_GROUP=www-data \
+  APACHE_LOG_DIR=/var/log/apache2 \
+  APACHE_LOCK_DIR=/var/lock/apache2 \
+  APACHE_PID_FILE=/var/run/apache2.pid
 
 ### MySQL
 # Install MySQL server and client.
 RUN apt-get install -y \
      mysql-server \
      mysql-client
-
-ADD sources/mysql/my.cnf /etc/mysql/my.cnf
-
-### PHP
-WORKDIR /etc/php5/conf.d
-RUN ln -s /home/docker/php/default52.ini
 
 ### 
 WORKDIR /home/docker
