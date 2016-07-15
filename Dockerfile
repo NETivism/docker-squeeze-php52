@@ -2,6 +2,8 @@ FROM debian:squeeze
 MAINTAINER Fuyuan Cheng <gloomcheng@netivism.com.tw>
 
 # Use lenny repository for PHP 5.2.17.
+RUN echo "" > /etc/apt/sources.list
+RUN echo "deb http://archive.debian.org/debian squeeze main contrib non-free" >> /etc/apt/sources.list
 RUN echo "deb http://archive.debian.org/debian lenny main contrib non-free" >> /etc/apt/sources.list
 ADD container/apt/lenny /etc/apt/preferences.d/
 RUN apt-get update \
@@ -56,6 +58,10 @@ RUN apt-get install -y \
      rsyslog \
      procps && \
   apt-get clean && rm -rf /var/lib/apt/lists/*
+
+### DRUSH
+RUN wget --quiet -O - https://github.com/drush-ops/drush/archive/5.11.0.tar.gz | tar -zxf - -C /usr/local/share
+RUN ln -s /usr/local/share/drush-5.11.0/drush /usr/local/bin/drush
 
 ADD container/apache/security.conf /etc/apache2/conf.d/security.conf
 ADD container/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
