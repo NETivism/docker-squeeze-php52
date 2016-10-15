@@ -65,6 +65,7 @@ RUN ln -s /usr/local/share/drush-5.11.0/drush /usr/local/bin/drush
 
 ADD container/apache/security.conf /etc/apache2/conf.d/security.conf
 ADD container/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD container/rsyslogd/rsyslog.conf /etc/rsyslog.conf
 
 ### 
 WORKDIR /var/www/html
